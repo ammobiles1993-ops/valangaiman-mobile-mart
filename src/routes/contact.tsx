@@ -28,7 +28,7 @@ const schema = z.object({
 function Contact() {
   const empty = { name: "", phone: "", message: "" };
   const [form, setForm] = useState(empty);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"customer_name" | "phone" | "device_model" | "issue" | "preferred_date" | "address" | "payment_method" | "name" | "message", string>>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
 
   async function submit(e: React.FormEvent) {

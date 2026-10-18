@@ -30,7 +30,7 @@ const schema = z.object({
 function Checkout() {
   const { lines, subtotal, clear } = useCart();
   const [form, setForm] = useState({ customer_name: "", phone: "", address: "", payment_method: "cod" as "cod" | "store_pickup" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"customer_name" | "phone" | "device_model" | "issue" | "preferred_date" | "address" | "payment_method" | "name" | "message", string>>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
 
   async function submit(e: React.FormEvent) {
