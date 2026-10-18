@@ -14,7 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_messages: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          name: string
+          phone: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          name: string
+          phone: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          address: string
+          created_at: string
+          customer_name: string
+          id: string
+          items: Json
+          payment_method: string
+          phone: string
+          total: number
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          customer_name: string
+          id?: string
+          items: Json
+          payment_method: string
+          phone: string
+          total: number
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          customer_name?: string
+          id?: string
+          items?: Json
+          payment_method?: string
+          phone?: string
+          total?: number
+        }
+        Relationships: []
+      }
+      repair_bookings: {
+        Row: {
+          created_at: string
+          customer_name: string
+          device_model: string
+          id: string
+          issue: string
+          phone: string
+          preferred_date: string
+        }
+        Insert: {
+          created_at?: string
+          customer_name: string
+          device_model: string
+          id?: string
+          issue: string
+          phone: string
+          preferred_date: string
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string
+          device_model?: string
+          id?: string
+          issue?: string
+          phone?: string
+          preferred_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
