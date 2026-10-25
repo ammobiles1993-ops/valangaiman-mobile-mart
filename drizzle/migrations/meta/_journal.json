@@ -15,6 +15,13 @@
       "when": 1792912089289,
       "tag": "0001_editable_shop_catalog",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792912110840,
+      "tag": "0002_owner_role_claim",
+      "breakpoints": true
     }
   ]
 }
