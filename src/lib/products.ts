@@ -10,6 +10,8 @@ export type Product = {
   description: string;
   rating: number;
   hue: number; // tint for product tile
+  imageUrl?: string;
+  imagePath?: string;
 };
 
 export const phones: Product[] = [
@@ -40,4 +42,4 @@ export const accessories: Product[] = [
 export const allProducts = [...phones, ...accessories];
 export const findProduct = (id: string) => allProducts.find((p) => p.id === id);
 export const phoneBrands = Array.from(new Set(phones.map((p) => p.brand)));
-export const accessoryCategories = Array.from(new Set(accessories.map((p) => p.category!)));
+export const accessoryCategories = Array.from(new Set(accessories.flatMap((p) => p.category ? [p.category] : [])));

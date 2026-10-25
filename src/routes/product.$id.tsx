@@ -4,12 +4,13 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { ProductImage, ProductTile } from "@/components/site/ProductTile";
 import { useCart } from "@/lib/cart";
-import { allProducts, findProduct } from "@/lib/products";
+import { catalogOptions, useProducts } from '@/lib/catalog';
 import { formatINR } from "@/lib/store-info";
 
 export const Route = createFileRoute("/product/$id")({
-  loader: ({ params }) => {
-    const p = findProduct(params.id);
+  loader: async ({ params, context }) => {
+    const products = await context.queryClient.ensureQueryData(catalogOptions);
+    const p = products.find(p => p.id === params.id);
     if (!p) throw notFound();
     return { p };
   },
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/product/$id")({
 
 function ProductPage() {
   const { p } = Route.useLoaderData();
+  const allProducts = useProducts();
   const { add } = useCart();
   const [qty, setQty] = useState(1);
   const related = allProducts.filter((x) => x.kind === p.kind && x.id !== p.id).slice(0, 4);

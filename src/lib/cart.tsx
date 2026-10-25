@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { findProduct, type Product } from "./products";
+import { type Product } from "./products";
+import { useProducts } from './catalog';
 
 type Line = { id: string; qty: number };
 type CartCtx = {
@@ -20,6 +21,7 @@ export function cartSubtotal(lines: { price: number; qty: number }[]) {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const products = useProducts();
   const [raw, setRaw] = useState<Line[]>([]);
   useEffect(() => {
     try {
@@ -33,8 +35,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
   const value = useMemo<CartCtx>(() => {
     const lines = raw
-      .map((l) => ({ ...l, product: findProduct(l.id)! }))
-      .filter((l) => l.product);
+      .flatMap((l) => { const product = products.find(p => p.id === l.id); return product ? [{ ...l, product }] : []; });
     return {
       lines,
       count: lines.reduce((s, l) => s + l.qty, 0),
@@ -47,7 +48,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       remove: (id) => save(raw.filter((l) => l.id !== id)),
       clear: () => save([]),
     };
-  }, [raw]);
+  }, [raw, products]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

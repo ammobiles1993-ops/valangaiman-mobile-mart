@@ -11,13 +11,13 @@ export function ProductImage({ p, className = "" }: { p: Product; className?: st
   return (
     <div className={`relative overflow-hidden rounded-xl bg-secondary ${className}`}>
       <img
-        src={p.kind === "phone" ? phoneImg : accImg}
+        src={p.imageUrl || (p.kind === "phone" ? phoneImg : accImg)}
         alt={`${p.brand} ${p.name}`}
         loading="lazy"
         width={816}
         height={816}
         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        style={{ filter: `hue-rotate(${p.hue - 230}deg)` }}
+        style={p.imageUrl ? undefined : { filter: `hue-rotate(${p.hue - 230}deg)` }}
       />
     </div>
   );

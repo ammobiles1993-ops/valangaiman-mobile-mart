@@ -4,7 +4,7 @@ import hero from "@/assets/hero.jpg";
 import accImg from "@/assets/accessories.jpg";
 import repairImg from "@/assets/repair.jpg";
 import { ProductTile } from "@/components/site/ProductTile";
-import { accessories, phones } from "@/lib/products";
+import { useProducts } from '@/lib/catalog';
 import { STORE } from "@/lib/store-info";
 
 export const Route = createFileRoute("/")({
@@ -26,6 +26,9 @@ const reviews = [
 ];
 
 function Index() {
+  const products = useProducts();
+  const phones = products.filter(p => p.kind === 'phone');
+  const accessories = products.filter(p => p.kind === 'accessory');
   return (
     <>
       <section className="relative overflow-hidden bg-ink text-ink-foreground">

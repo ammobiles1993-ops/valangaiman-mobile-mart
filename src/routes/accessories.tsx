@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Catalog } from "@/components/site/Catalog";
 import { PageHeader } from "@/components/site/Layout";
-import { accessories, accessoryCategories } from "@/lib/products";
+import { useProducts } from '@/lib/catalog';
 
 export const Route = createFileRoute("/accessories")({
   head: () => ({
@@ -12,10 +12,15 @@ export const Route = createFileRoute("/accessories")({
       { property: "og:description", content: "Genuine accessories for every phone." },
     ],
   }),
-  component: () => (
+  component: Accessories,
+});
+function Accessories() {
+  const accessories = useProducts().filter(p => p.kind === 'accessory');
+  const accessoryCategories = [...new Set(accessories.flatMap(p => p.category ? [p.category] : []))];
+  return (
     <>
       <PageHeader eyebrow="Accessories" title="Gear for every phone" sub="Cases, glass, chargers, audio and wearables — genuine and affordable." />
       <Catalog items={accessories} groups={accessoryCategories} groupKey="category" label="Accessories" />
     </>
-  ),
-});
+  );
+}

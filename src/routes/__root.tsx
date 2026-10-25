@@ -15,6 +15,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "@/lib/cart";
 import { SiteFooter, SiteHeader, WhatsAppFab } from "@/components/site/Layout";
 import { Toaster } from "@/components/ui/sonner";
+import { CatalogProvider, catalogOptions } from '@/lib/catalog';
+import { supabase } from '@/integrations/supabase/client';
 
 function NotFoundComponent() {
   return (
@@ -77,6 +79,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: ({ context }) => context.queryClient.ensureQueryData(catalogOptions),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -88,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" },
@@ -116,10 +119,19 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange(event => {
+      if (!['SIGNED_IN', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;
+      router.invalidate();
+      if (event !== 'SIGNED_OUT') queryClient.invalidateQueries();
+    });
+    return () => data.subscription.unsubscribe();
+  }, [queryClient, router]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
+      <CatalogProvider><CartProvider>
         <SiteHeader />
         <main>
           <Outlet />
@@ -127,7 +139,7 @@ function RootComponent() {
         <SiteFooter />
         <WhatsAppFab />
         <Toaster position="top-center" />
-      </CartProvider>
+      </CartProvider></CatalogProvider>
     </QueryClientProvider>
   );
 }
