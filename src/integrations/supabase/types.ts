@@ -71,6 +71,57 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          brand: string
+          category: string | null
+          created_at: string
+          description: string
+          hue: number
+          id: string
+          image_url: string | null
+          kind: string
+          mrp: number
+          name: string
+          position: number
+          price: number
+          rating: number
+          specs: string[]
+        }
+        Insert: {
+          brand: string
+          category?: string | null
+          created_at?: string
+          description?: string
+          hue?: number
+          id: string
+          image_url?: string | null
+          kind: string
+          mrp: number
+          name: string
+          position?: number
+          price: number
+          rating?: number
+          specs?: string[]
+        }
+        Update: {
+          brand?: string
+          category?: string | null
+          created_at?: string
+          description?: string
+          hue?: number
+          id?: string
+          image_url?: string | null
+          kind?: string
+          mrp?: number
+          name?: string
+          position?: number
+          price?: number
+          rating?: number
+          specs?: string[]
+        }
+        Relationships: []
+      }
       repair_bookings: {
         Row: {
           created_at: string
@@ -101,15 +152,40 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_shop_owner: { Args: never; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -236,6 +312,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

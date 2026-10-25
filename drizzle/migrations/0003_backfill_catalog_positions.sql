@@ -1,0 +1,21 @@
+alter table public.products add column position integer not null default 0;
+insert into public.products(id,kind,brand,name,price,mrp,category,specs,description,rating,hue,position) values
+('iphone-16-pro','phone','Apple','iPhone 16 Pro',119900,129900,NULL,ARRAY['6.3" Super Retina XDR','A18 Pro chip','48MP triple camera','256GB'],'Titanium design, Camera Control and all-day battery.',4.8,255,0),
+('iphone-15','phone','Apple','iPhone 15',64900,69900,NULL,ARRAY['6.1" OLED','A16 Bionic','48MP dual camera','128GB'],'Dynamic Island, USB-C and a brilliant 48MP camera.',4.7,220,1),
+('galaxy-s24-ultra','phone','Samsung','Galaxy S24 Ultra',109999,129999,NULL,ARRAY['6.8" QHD+ AMOLED','Snapdragon 8 Gen 3','200MP quad camera','256GB'],'Galaxy AI, built-in S Pen and titanium frame.',4.8,270,2),
+('galaxy-a55','phone','Samsung','Galaxy A55 5G',36999,42999,NULL,ARRAY['6.6" Super AMOLED','Exynos 1480','50MP OIS camera','128GB'],'Premium metal design with IP67 protection.',4.5,200,3),
+('pixel-9','phone','Google','Pixel 9',74999,79999,NULL,ARRAY['6.3" Actua display','Tensor G4','50MP dual camera','128GB'],'Google AI built in, with the best Pixel camera yet.',4.6,160,4),
+('oneplus-12r','phone','OnePlus','OnePlus 12R',39999,42999,NULL,ARRAY['6.78" 120Hz AMOLED','Snapdragon 8 Gen 2','50MP camera','256GB'],'Flagship speed with 100W SUPERVOOC charging.',4.5,190,5),
+('redmi-note-13-pro','phone','Xiaomi','Redmi Note 13 Pro 5G',23999,28999,NULL,ARRAY['6.67" 1.5K AMOLED','Snapdragon 7s Gen 2','200MP camera','128GB'],'200MP camera at an unbeatable price.',4.4,30,6),
+('vivo-v30','phone','Vivo','Vivo V30 5G',33999,37999,NULL,ARRAY['6.78" AMOLED','Snapdragon 7 Gen 3','50MP Aura Light','128GB'],'Slim design with studio-quality portraits.',4.4,330,7),
+('oppo-reno-12','phone','Oppo','Oppo Reno 12 5G',32999,36999,NULL,ARRAY['6.7" 120Hz AMOLED','Dimensity 7300','50MP camera','256GB'],'AI photo editing and 80W fast charge.',4.3,140,8),
+('realme-12-pro','phone','Realme','Realme 12 Pro+ 5G',29999,33999,NULL,ARRAY['6.7" curved AMOLED','Snapdragon 7s Gen 2','64MP periscope','256GB'],'Periscope zoom with a luxury watch-inspired look.',4.3,60,9),
+('silicone-case','accessory','Spigen','Liquid Silicone Case',799,1299,'Cases',ARRAY['Soft-touch finish','Raised camera lip'],'Slim, grippy protection for daily use.',4.5,255,10),
+('tempered-glass','accessory','AM Pro','9H Tempered Glass',299,599,'Tempered Glass',ARRAY['Edge-to-edge','Free fitting in store'],'Bubble-free install done for you at the counter.',4.6,200,11),
+('charger-33w','accessory','Anker','33W USB-C Fast Charger',1499,2199,'Chargers',ARRAY['PD + QC 3.0','Compact GaN'],'Fast-charge phones and earbuds safely.',4.7,220,12),
+('braided-cable','accessory','Anker','Braided USB-C Cable 1.5m',599,999,'Cables',ARRAY['60W','10,000+ bend tested'],'Tough nylon braid that lasts.',4.5,180,13),
+('powerbank-20k','accessory','Mi','20000mAh Power Bank',2199,2999,'Power Banks',ARRAY['22.5W fast charge','Dual output'],'Four full phone charges on the go.',4.6,270,14),
+('earbuds-pro','accessory','boAt','Airdopes Pro ANC',1999,4999,'Earbuds',ARRAY['ANC','40h playback'],'Deep bass with active noise cancellation.',4.3,300,15),
+('bt-speaker','accessory','JBL','JBL Go 4',3499,3999,'Bluetooth Speakers',ARRAY['IP67','7h playback'],'Big sound in a pocket-sized speaker.',4.7,20,16),
+('smartwatch','accessory','Noise','ColorFit Pro 5',3999,6999,'Smartwatches',ARRAY['1.85" AMOLED','Bluetooth calling'],'Health tracking with a bright AMOLED screen.',4.2,160,17),
+('car-mount','accessory','Portronics','Magnetic Car Mount',699,1199,'Others',ARRAY['360° rotation','Strong N52 magnets'],'Safe one-hand navigation while driving.',4.4,90,18);

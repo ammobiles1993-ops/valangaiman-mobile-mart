@@ -1,0 +1,5 @@
+drop trigger if exists assign_shop_identity_owner on auth.identities;
+drop function if exists public.assign_shop_identity_owner();
+create function public.claim_shop_owner() returns boolean language plpgsql security definer set search_path=public as $$ begin if exists(select 1 from auth.users u where u.id=auth.uid() and lower(u.email)='karthickkumaravel555@gmail.com' and u.email_confirmed_at is not null and exists(select 1 from auth.identities i where i.user_id=u.id and i.provider in ('google','lovable'))) then insert into public.user_roles(user_id,role) values(auth.uid(),'admin') on conflict do nothing; end if; return public.has_role(auth.uid(),'admin'); end $$;
+revoke all on function public.claim_shop_owner() from public;
+grant execute on function public.claim_shop_owner() to authenticated;
