@@ -1,0 +1,4 @@
+- [ ] Add uploaded logo and favicon.
+- [ ] Store editable products with owner-only access and photo uploads.
+- [ ] Connect every shop surface to saved products.
+- [ ] Verify owner editing and public product display.
