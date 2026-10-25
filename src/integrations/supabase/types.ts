@@ -83,6 +83,7 @@ export type Database = {
           kind: string
           mrp: number
           name: string
+          position: number
           price: number
           rating: number
           specs: string[]
@@ -98,6 +99,7 @@ export type Database = {
           kind: string
           mrp: number
           name: string
+          position?: number
           price: number
           rating?: number
           specs?: string[]
@@ -113,6 +115,7 @@ export type Database = {
           kind?: string
           mrp?: number
           name?: string
+          position?: number
           price?: number
           rating?: number
           specs?: string[]
